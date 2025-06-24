@@ -1,7 +1,7 @@
 # redhat-event
 
 
-# Implementation Guide: UPI Anomaly Detection on OpenShift (Red Hat Hackathon 2025)
+# Implementation Guide: UPI Anomaly Detection on OpenShift
 
 1. **Set up the OpenShift environment:** After receiving cluster credentials, log into your OpenShift cluster. For example, use the OpenShift CLI:
 
