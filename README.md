@@ -760,9 +760,7 @@ tkn pipeline start upi-train-pipeline --param TAG=auto
    tkn pipelinerun list
    ```
 
-```
+
 5. **Grafana Dashboard**: Confirm graphs for fraud alerts and API latency.
 
 The POC is now end‑to‑end: data ingestion on PVC/Kafka, model training on Data Science, CI/CD with Tekton, real‑time scoring via FastAPI & Kafka, explainability with SHAP, monitoring + dashboards, and automated retraining.
-
-```
