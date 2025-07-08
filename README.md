@@ -87,15 +87,28 @@ oc run loader \
   --restart=Never \
   --overrides='
 {
-  "apiVersion":"v1","kind":"Pod",
+  "apiVersion":"v1",
+  "kind":"Pod",
   "spec":{
-    "volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"upi-data-pvc"}}],
+    "volumes":[
+      {
+        "name":"data",
+        "persistentVolumeClaim":{
+          "claimName":"upi-data-pvc1"
+        }
+      }
+    ],
     "containers":[
       {
         "name":"loader",
         "image":"registry.access.redhat.com/ubi8/ubi",
         "command":["sleep","3600"],
-        "volumeMounts":[{"mountPath":"/data","name":"data"}]
+        "volumeMounts":[
+          {
+            "mountPath":"/data",
+            "name":"data"
+          }
+        ]
       }
     ],
     "restartPolicy":"Never"
