@@ -85,9 +85,23 @@ oc apply -f pvc-upi-data.yaml
 oc run loader \
   --image=registry.access.redhat.com/ubi8/ubi \
   --restart=Never \
-  --command -- sleep 3600
-
-oc volume loader --add --name=data --mount-path=/data --claim-name=upi-data-pvc
+  --overrides='
+{
+  "apiVersion":"v1","kind":"Pod",
+  "spec":{
+    "volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"upi-data-pvc"}}],
+    "containers":[
+      {
+        "name":"loader",
+        "image":"registry.access.redhat.com/ubi8/ubi",
+        "command":["sleep","3600"],
+        "volumeMounts":[{"mountPath":"/data","name":"data"}]
+      }
+    ],
+    "restartPolicy":"Never"
+  }
+}
+'
 # 2. Copy file from local into pod
 tar cf - -C data dummy_upi_transactions.csv | oc exec -i pod/loader -- tar xf - -C /data
 # 3. Inside pod verify and exit
