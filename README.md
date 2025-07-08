@@ -82,7 +82,11 @@ oc apply -f pvc-upi-data.yaml
 
 ```bash
 # 1. Launch loader pod with PVC mounted
-oc run loader --image=quay.io/centos7/python-36 --restart=Never --command -- sleep 3600
+oc run loader \
+  --image=registry.access.redhat.com/ubi8/ubi \
+  --restart=Never \
+  --command -- sleep 3600
+
 oc volume loader --add --name=data --mount-path=/data --claim-name=upi-data-pvc
 # 2. Copy file from local into pod
 tar cf - -C data dummy_upi_transactions.csv | oc exec -i pod/loader -- tar xf - -C /data
